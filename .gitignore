@@ -1,0 +1,12 @@
+node_modules
+public
+resources
+.netlify
+.hugo_build.lock
+content/en/.obsidian/
+content/en/.trash/
+content/en/_*
+
+
+
+

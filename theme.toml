@@ -1,0 +1,13 @@
+name = "The Integrative"
+license = "MIT"
+licenselink = "https://github.com/h-enk/doks/blob/master/LICENSE"
+description = "Hugo theme helping you build modern documentation websites that are secure, fast, and SEO-ready — by default."
+
+homepage = "https://theintegrative.net"
+
+tags = ["development", "devops", "engineering", "infrastructure", "linux", "integration"]
+features = ["linux engineering", "continious integration", "development"]
+
+[author]
+  name = "The Integrative - Brightly Gourgel Santinho"
+  homepage = "https://theintegrative.net"
