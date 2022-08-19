@@ -2,11 +2,11 @@
   name = "Resources"
   weight = 10
   identifier = "Resources"
-  url = "/docs/resources/"
+  url = "/docs/resource/"
 
 [[main]]
   name = "Docs"
-  url = "/docs/resources/introduction"
+  url = "/docs/resource/introduction"
   weight = 10
 
 [[main]]

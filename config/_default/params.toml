@@ -80,22 +80,22 @@ alertDismissable = true
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
 repoHost = "GitHub"
 #repoHost = "Gitea"
-docsRepo = "https://github.com/theintegrative"
-docsRepoBranch = "master"
+docsRepo = "https://github.com/theintegrative/theintegrative.net"
+docsRepoBranch = "main"
 docsRepoSubPath = ""
-editPage = false
-lastMod = false
+editPage = true
+lastMod = true
 
 [sections]
-  sectionNav = ["insights"]
+  sectionNav = ["insights", "docs"]
 
 [options]
   lazySizes = true
   clipBoard = true
   instantPage = true
   flexSearch = true
-  searchSectionsShow = ["insights"]
-  searchSectionsIndex = ["insights"]
+  searchSectionsShow = ["insights", "docs"]
+  searchSectionsIndex = ["insights", "docs"]
   darkMode = true
   bootStrapJs = true
   breadCrumb = true
@@ -106,7 +106,7 @@ lastMod = false
   fullWidth = false
   navbarSticky = true
   toTopButton = true
-  scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
+  scrollSpy = true # experimental; needs Bootstrap >= 5.2.0-beta1
 
 [menu]
   [menu.section]
