@@ -15,7 +15,7 @@ toc: true
 ---
 I like to keep everything very organised, in a well documented way. This makes communication very smooth, efficient and clear. 
 
-We engineers don't like to repeat ourselves as our conversations tend to get [dry](). While making progress, I will keep you in the loop on new updates. 
+We engineers do not like to repeat ourselves as our conversations tend to get [dry](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). While making progress, I will keep you in the loop on new updates. 
 
 Soon you will get answers on questions like: 
 - Which software do you use?

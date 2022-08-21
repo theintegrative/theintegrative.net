@@ -6,13 +6,9 @@ titleSeparator = "-"
 titleAddition = "Let's get integrative together!"
 description = "Linux, opensource and more integrated in the future"
 
-## Documentation
-# docsVersion = "0.3"
-
 ## Open Graph
 images = ["images.jpg"]
 ogLocale = "en_US"
-domainTLD = "theintegrative.net"
 titleHome = "The integrative"
 
 ## Twitter Cards
@@ -20,24 +16,12 @@ twitterSite = "@theintegratives"
 twitterCreator = "@theintegratives"
 
 ## JSON-LD
-schemaType = "Person"
-# schemaType = "Organization"
-schemaName = "Doks"
-schemaAuthor = "The integrative"
-schemaAuthorTwitter = "https://twitter.com/theintegratives"
-schemaAuthorLinkedIn = "https://www.linkedin.com/in/brightly/"
-schemaAuthorGitHub = "https://github.com/theintegrative"
-schemaLocale = "en-US"
-schemaLogo = ""
-schemaLogoWidth = 512
-schemaLogoHeight = 512
-schemaImage = ""
-schemaImageWidth = 1280
-schemaImageHeight = 640
+schemaLogo = "images.jpeg"
 schemaTwitter = "https://twitter.com/theintegratives"
 schemaLinkedIn = "https://www.linkedin.com/in/brightly/"
 schemaGitHub = "https://github.com/theintegrative"
 schemaSection = "insights"
+schemaType = "Organization"
 
 ## Sitelinks Search Box
 siteLinksSearchBox = true
@@ -65,7 +49,7 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = "Powered by <a class=\"text-muted\" href=\"https://www.netlify.com/\">Netlify</a>, <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a>, and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+footer = "Powered by <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a> and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
 
 # Feed
 copyRight = "Copyright (c) 2020"
@@ -73,8 +57,6 @@ copyRight = "Copyright (c) 2020"
 # Alert
 alert = false
 alertDismissable = true
-# alertText = "Introducing the Doks child theme, several DX + UX updates, and more! <a class=\"alert-link stretched-link\" href=\"https://getdoks.org/blog/doks-v0.2/\" target=\"_blank\" rel=\"noopener\">Check out Doks v0.2</a>"
-# alertText = "Introducing the Doks child theme, several DX + UX updates, and more! <a class=\"alert-link stretched-link\" href=\"https://getdoks.org/blog/doks-v0.2/\">Check out Doks v0.2</a>"
 
 # Edit Page
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster

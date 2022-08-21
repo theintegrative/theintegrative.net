@@ -6,7 +6,6 @@ resources
 content/en/.obsidian/
 content/en/.trash/
 content/en/_*
-
-
-
+backups
+*.sh
 

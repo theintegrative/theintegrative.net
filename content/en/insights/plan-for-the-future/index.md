@@ -15,11 +15,11 @@ excerpt: >-
   limit.
 weight: 10
 categories:
-  - Future
-  - Strategies
+  - Future 
 tags:
   - long-term
   - vision
+  - learning
 contributors:
   - Brightly Gourgel Santinho
 pinned: false
