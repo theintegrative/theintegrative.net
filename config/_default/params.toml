@@ -7,7 +7,7 @@ titleAddition = "Let's get integrative together!"
 description = "Linux, opensource and more integrated in the future"
 
 ## Open Graph
-images = ["images.jpg"]
+images = ["images.png"]
 ogLocale = "en_US"
 titleHome = "The integrative"
 
@@ -16,12 +16,16 @@ twitterSite = "@theintegratives"
 twitterCreator = "@theintegratives"
 
 ## JSON-LD
-schemaLogo = "images.jpeg"
+schemaLogo = "images.png"
 schemaTwitter = "https://twitter.com/theintegratives"
 schemaLinkedIn = "https://www.linkedin.com/in/brightly/"
 schemaGitHub = "https://github.com/theintegrative"
 schemaSection = "insights"
-schemaType = "Organization"
+schemaType = "Person"
+schemaImage = "images.png"
+schemaImageWidth = 1280
+schemaImageHeight = 640
+
 
 ## Sitelinks Search Box
 siteLinksSearchBox = true
@@ -69,14 +73,14 @@ editPage = true
 lastMod = true
 
 [sections]
-  sectionNav = ["insights", "docs"]
+  sectionNav = ["insights", "docs", "Strategies"]
 
 [options]
   lazySizes = true
   clipBoard = true
   instantPage = true
   flexSearch = true
-  searchSectionsShow = ["insights", "docs"]
+  searchSectionsShow = ["insights", "docs", "Strategies"]
   searchSectionsIndex = ["insights", "docs"]
   darkMode = true
   bootStrapJs = true

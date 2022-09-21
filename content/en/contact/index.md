@@ -7,4 +7,4 @@ draft: false
 images: []
 ---
 
-Currently I am available to work! [Send Message](mailto:bright.gs@proton.me)
+Currently I am available to work! [Send Message](mailto:brightly.gs@proton.me)
