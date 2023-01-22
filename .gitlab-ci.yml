@@ -3,17 +3,7 @@ variables:
   DIR: public/
 
 stages:
-  - build
   - deploy
-
-build-job:
-  stage: build
-  image: ubuntu
-  script:
-    - apt update
-    - apt upgrade -y
-    - apt install hugo -y
-    - hugo
 
 deploy-job:
   stage: deploy
@@ -31,7 +21,8 @@ deploy-job:
   script:
     - apt update
     - apt upgrade -y
-    - apt install hugo rsync -y
+    - apt install software-properties-common hugo rsync -y
+    - hugo
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - hugo && rsync -avz public/ ${USER}@${HOST}:~/${DIR}
     - ssh ${USER}@${HOST} "docker-compose down --remove-orphans && docker-compose up -d"
