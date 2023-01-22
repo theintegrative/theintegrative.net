@@ -7,9 +7,10 @@ stages:
 
 build-job:
   stage: build
-  image: klakegg/hugo:0.107.0
+  image: ubuntu
   script:
-    - ""
+    - sudo apt install hugo
+    - hugo
 
 deploy-job:
   stage: deploy
@@ -27,4 +28,4 @@ deploy-job:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - hugo && rsync -avz --delete public/ ${USER}@${HOST}:~/${DIR}
-    - ssh user@server "docker-compose down --remove-orphans && docker-compose up -d"
+    - ssh ${USER}@s${HOST} "docker-compose down --remove-orphans && docker-compose up -d"
