@@ -33,5 +33,5 @@ deploy-job:
     - apt upgrade -y
     - apt install hugo rsync -y
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - hugo && rsync -avz --delete public/ ${USER}@${HOST}:~/${DIR}
+    - hugo && rsync -avz public/ ${USER}@${HOST}:~/${DIR}
     - ssh ${USER}@${HOST} "docker-compose down --remove-orphans && docker-compose up -d"
