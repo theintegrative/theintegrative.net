@@ -8,15 +8,11 @@ stages:
 build-job:
   stage: build
   image: klakegg/hugo:0.107.0
-  tags:
-    - docker
   script:
     - ""
 
 deploy-job:
   stage: deploy
-  tags: 
-    - docker
   before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
