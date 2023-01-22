@@ -1,29 +1,17 @@
-defaultMarkdownHandler = "goldmark"
-
-[goldmark]
-  [goldmark.extensions]
-    linkify = true
-  [goldmark.parser]
-    autoHeadingID = true
-    autoHeadingIDType = "github"
-    [goldmark.parser.attribute]
-      block = true
-      title = true
-  [goldmark.renderer]
-    unsafe = false
-
-[highlight]
-  codeFences = false
-  guessSyntax = true
-  hl_Lines = ""
-  lineNoStart = 1
-  lineNos = false
-  lineNumbersInTable = true
-  noClasses = false
-  style = "dracula"
-  tabWidth = 4
+# Markdown renderer configuration
+[goldmark.renderer]
+unsafe = false
 
 [tableOfContents]
-  endLevel = 3
-  ordered = false
-  startLevel = 2
+endLevel = 4
+ordered = true
+startLevel = 2
+
+[highlight]
+noClasses = false
+codeFences = true
+guessSyntax = true
+lineNoStart = 1
+lineNos = true
+lineNumbersInTable = true
+tabWidth = 4

@@ -1,100 +1,148 @@
-# Meta Data for SEO
+# Pages placed under these sections will be shown on homepage and archive page.
+mainSections = ["post"]
+# Output page's full content in RSS.
+rssFullContent = true
 
-## Homepage
-title = "The integrative"
-titleSeparator = "-"
-titleAddition = "Let's get integrative together!"
-description = "Linux, opensource and more integrated in the future"
+[footer]
+since = 2020
+customText = ""
 
-## Open Graph
-images = ["images.png"]
-ogLocale = "en_US"
-titleHome = "The integrative"
+[dateFormat]
+published = "Jan 02, 2006"
+lastUpdated = "Jan 02, 2006 15:04 MST"
 
-## Twitter Cards
-twitterSite = "@theintegratives"
-twitterCreator = "@theintegratives"
+[sidebar]
+emoji = "🍥"
+subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-## JSON-LD
-schemaLogo = "images.png"
-schemaTwitter = "https://twitter.com/theintegratives"
-schemaLinkedIn = "https://www.linkedin.com/in/brightly/"
-schemaGitHub = "https://github.com/theintegrative"
-schemaSection = "insights"
-schemaType = "Person"
-schemaImage = "images.png"
-schemaImageWidth = 1280
-schemaImageHeight = 640
+[sidebar.avatar]
+enabled = true
+local = true
+src = "img/avatar.png"
 
+[article]
+math = false
+readingTime = true
 
-## Sitelinks Search Box
-siteLinksSearchBox = true
+[article.license]
+enabled = true
+default = "Licensed under CC BY-NC-SA 4.0"
 
-## Chrome Browser
-themeColor = "#fff"
+## Widgets
+[[widgets.homepage]]
+type = "search"
 
-# Images
-quality = 85
-bgColor = "#fff"
-landscapePhotoWidths = [900, 800, 700, 600, 500]
-portraitPhotoWidths = [800, 700, 600, 500]
-lqipWidth = "20x"
-smallLimit = "300"
+[[widgets.homepage]]
+type = "archives"
 
-# Images
-imageResponsive = true
-imageConvertTo = "webp"
-imageImageSizes = ["480","720","1080","1280","1600","2048"]
-singleSize = false
-imageAddClass = "img-fluid lazyload blur-up"
+[widgets.homepage.params]
+limit = 5
 
-### Image template
-defaultImage = "default-image.png" # put in `./assets/images/`
-fillImage = "1270x740 Center" # normalize image size
+[[widgets.homepage]]
+type = "categories"
 
-# Footer
-footer = "Powered by <a class=\"text-muted\" href=\"https://gohugo.io/\">Hugo</a> and <a class=\"text-muted\" href=\"https://getdoks.org/\">Doks</a>"
+[widgets.homepage.params]
+limit = 10
 
-# Feed
-copyRight = "Copyright (c) 2020"
+[[widgets.homepage]]
+type = "tag-cloud"
 
-# Alert
-alert = false
-alertDismissable = true
+[widgets.homepage.params]
+limit = 10
 
-# Edit Page
-# repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
-repoHost = "GitHub"
-#repoHost = "Gitea"
-docsRepo = "https://github.com/theintegrative/theintegrative.net"
-docsRepoBranch = "main"
-docsRepoSubPath = ""
-editPage = true
-lastMod = true
+[[widgets.page]]
+type = "toc"
 
-[sections]
-  sectionNav = ["insights", "docs", "Strategies"]
+[opengraph.twitter]
+site = ""
+card = "summary_large_image"
 
-[options]
-  lazySizes = true
-  clipBoard = true
-  instantPage = true
-  flexSearch = true
-  searchSectionsShow = ["insights", "docs", "Strategies"]
-  searchSectionsIndex = ["insights", "docs"]
-  darkMode = true
-  bootStrapJs = true
-  breadCrumb = true
-  highLight = true
-  kaTex = false
-  multilingualMode = false
-  docsVersioning = false
-  fullWidth = false
-  navbarSticky = true
-  toTopButton = true
-  scrollSpy = true # experimental; needs Bootstrap >= 5.2.0-beta1
+[defaultImage.opengraph]
+enabled = false
+local = false
+src = ""
 
-[menu]
-  [menu.section]
-    auto = true
-    collapsibleSidebar = false
+[colorScheme]
+toggle = true
+default = "auto"
+
+[imageProcessing.cover]
+enabled = true
+
+[imageProcessing.content]
+enabled = true
+
+## Comments
+[comments]
+enabled = true
+provider = "disqus"
+
+[comments.disqusjs]
+shortname = ""
+apiUrl = ""
+apiKey = ""
+admin = ""
+adminLabel = ""
+
+[comments.utterances]
+repo = ""
+issueTerm = "pathname"
+label = ""
+
+[comments.remark42]
+host = ""
+site = ""
+locale = ""
+
+[comments.vssue]
+platform = ""
+owner = ""
+repo = ""
+clientId = ""
+clientSecret = ""
+autoCreateIssue = false
+
+[comments.waline]
+serverURL = ""
+lang = ""
+visitor = ""
+avatar = ""
+emoji = ["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"]
+requiredMeta = ["name", "email", "url"]
+placeholder = ""
+
+[comments.waline.locale]
+admin = "Admin"
+
+[comments.twikoo]
+envId = ""
+region = ""
+path = ""
+lang = ""
+
+[comments.cactus]
+defaultHomeserverUrl = "https://matrix.cactus.chat:8448"
+serverName = "cactus.chat"
+siteName = ""
+
+[comments.giscus]
+repo = ""
+repoID = ""
+category = ""
+categoryID = ""
+mapping = ""
+lightTheme = ""
+darkTheme = ""
+reactionsEnabled = 1
+emitMetadata = 0
+
+[comments.gitalk]
+owner = ""
+admin = ""
+repo = ""
+clientID = ""
+clientSecret = ""
+
+[comments.cusdis]
+host = ""
+id = ""
