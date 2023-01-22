@@ -21,7 +21,7 @@ deploy-job:
   script:
     - apt update
     - apt upgrade -y
-    - apt install software-properties-common hugo rsync -y
+    - apt install golang-go hugo rsync -y
     - hugo --gc --minify
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - rsync -avz public/ ${USER}@${HOST}:~/${DIR}
