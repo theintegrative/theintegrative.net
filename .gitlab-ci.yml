@@ -1,5 +1,6 @@
 variables:
   HOST: theintegrative.net
+  DIR: public/
 
 stages:
   - build
