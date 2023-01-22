@@ -27,8 +27,8 @@ obsidian obsidian://open?vault=content &
 ## Local development
 ```shell
 obsidian obsidian://open?vault=content &
-hugo server
 firefox http://localhost:1313/
+hugo server
 ```
 
 ## Pushing to website (gitlab ci/cd pipeline)
