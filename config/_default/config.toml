@@ -1,5 +1,5 @@
 # Change baseurl before deploy
-baseurl = "https://theintegrative.net"
+baseurl = "theintegrative.net"
 languageCode = "en-us"
 paginate = 5
 title = "Let's get integrative together"

@@ -1,4 +1,4 @@
-baseURL = 'https://theintegrative.net/'
+baseURL = 'heintegrative.net/'
 languageCode = 'en-us'
 title = 'Lets get integrative'
 theme = 'hugo-theme-stack'
