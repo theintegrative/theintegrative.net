@@ -9,7 +9,8 @@ build-job:
   stage: build
   image: ubuntu
   script:
-    - sudo apt install hugo
+    - apt update
+    - apt install hugo
     - hugo
 
 deploy-job:
