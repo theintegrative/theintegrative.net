@@ -15,11 +15,6 @@ First time in obsidian:
 1. Open folder as fault
 2. Select the content folder
 
-Other times: (CLI ubuntu)
-```shell
-obsidian obsidian://open?vault=content &
-```
-
 ## Local development
 ```shell
 obsidian obsidian://open?vault=content &
@@ -29,11 +24,7 @@ hugo server
 
 ## Pushing to website (gitlab ci/cd pipeline)
 ```shell
+hugo
+git push
 git push upstream
-```
-
-## Building the docker container
-```
-docker build -t theintegrative/hugo-ubuntu:0.x .
-docker push theintegrative/hugo-ubuntu:0.x
 ```
