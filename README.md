@@ -31,3 +31,9 @@ hugo server
 ```shell
 git push upstream
 ```
+
+## Building the docker container
+```
+docker build -t theintegrative/hugo-ubuntu:0.x .
+docker push theintegrative/hugo-ubuntu:0.x
+```
