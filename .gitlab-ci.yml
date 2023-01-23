@@ -3,26 +3,17 @@ variables:
   DIR: public/
 
 stages:
-  - build
   - deploy
-
-# TODO build job if dockerfile changes push and pull container image
-build-job:
-  stage: build
-  image: registry.gitlab.com/pages/hugo/hugo_extended:latest
-  script:
-    - hugo
 
 deploy-job:
   stage: deploy
-  image: theintegrative/hugo-ubuntu:0.1
+  image: instrumentisto/rsync-ssh:latest
   before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  ## Use ssh-keyscan to scan the keys of your private server. Replace gitlab.com
   - ssh-keyscan ${HOST} >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   script:

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>ubuntu on Let&#39;s get integrative together</title>
+        <link>https://theintegrative.net/tags/ubuntu/</link>
+        <description>Recent content in ubuntu on Let&#39;s get integrative together</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 20 Aug 2022 16:25:37 +0000</lastBuildDate><atom:link href="https://theintegrative.net/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How I setup this self-hosted markdown website using docker, hugo and obsidian</title>
+        <link>https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/</link>
+        <pubDate>Sat, 20 Aug 2022 16:25:37 +0000</pubDate>
+        
+        <guid>https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/</guid>
+        <description>&lt;img src="https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog.jpg" alt="Featured image of post How I setup this self-hosted markdown website using docker, hugo and obsidian" /&gt;&lt;p&gt;Hey, integrative! I am going to breakdown in this post how I setup this self-hosted website.  We all have to start somewhere. Happy to take you with me on my public learning journey.&lt;/p&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;I created a few content management scripts that automate development with hugo and obsidian. It generates the website, makes a backup before it deploys the new website into production by restarting the nginx-certbot container with the new content. You can get code from this &lt;a class=&#34;link&#34; href=&#34;https://github.com/theintegrative/hugo-depoyment&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;repository&lt;/a&gt;. Updates will follow.&lt;/p&gt;
+&lt;h2 id=&#34;foreword&#34;&gt;Foreword&lt;/h2&gt;
+&lt;p&gt;For explanatory reasons I&amp;rsquo;ve filtered out irrelevant files and folders so that we can focus on the automation that is important. To see the files that are ignored go &lt;a class=&#34;link&#34; href=&#34;https://github.com/theintegrative/theintegrative.net&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;. In this breakdown I will not go into detail about how I configured my nginx-certbot.&lt;/p&gt;
+&lt;h2 id=&#34;software-used-in-this-project&#34;&gt;Software used in this project&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Obsidian - Markdown editor&lt;/li&gt;
+&lt;li&gt;Vim -  Text editor&lt;/li&gt;
+&lt;li&gt;Shell Scripting&lt;/li&gt;
+&lt;li&gt;Docker - Containerisation&lt;/li&gt;
+&lt;li&gt;Hugo - Static Website Generator&lt;/li&gt;
+&lt;li&gt;Ubuntu Desktop + Ubuntu Server&lt;/li&gt;
+&lt;li&gt;Nginx - webserver&lt;/li&gt;
+&lt;li&gt;Git - version control&lt;/li&gt;
+&lt;li&gt;Certbot - automates Let&amp;rsquo;s encrypt certificates for security through https&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-development-environment-my-machine&#34;&gt;The development environment my machine&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s take a look by listing these scripts in a tree like format:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;integrative@home:~/website/hugo/doks$ tree
+.
+├── backups
+│   └── backup.sh
+├── development.sh
+└── production.sh
+
+&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; directory, &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; files
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;We start by developing our website.&lt;/p&gt;
+&lt;p&gt;This is what the script development.sh contains inside:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#! /bin/bash
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Start your browser&lt;/span&gt;
+brave-browser http://localhost:1313/
+
+&lt;span class=&#34;c1&#34;&gt;# With flatpak start obsidian and open the vault &amp;#34;en&amp;#34; &lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# that is the content folder through the obsidian URI in the background&lt;/span&gt;
+flatpak run md.obsidian.Obsidian obsidian://open?vault&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Starting development server with hugo doks theme for more https://getdoks.org/ &lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# For hugo use: hugo server&lt;/span&gt;
+npm run start
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Running development.sh will give me an open browser and markdown editor. From there I can start writing blog posts like this. In a future post I will show you more on workflows, setting up obsidian and more. When done, I simply do Ctrl-C that shuts down the running server. Then commit it to the repository.&lt;/p&gt;
+&lt;p&gt;Now, we are going to take a look into the production.sh file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#! /bin/bash
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# first check for updates&lt;/span&gt;
+npm update
+
+&lt;span class=&#34;c1&#34;&gt;# build the website&lt;/span&gt;
+npm run build
+
+&lt;span class=&#34;c1&#34;&gt;# make backup of the production site before deployment&lt;/span&gt;
+bash ./backups/backup.sh
+
+&lt;span class=&#34;c1&#34;&gt;# update files&lt;/span&gt;
+rsync -ruzv --delete ./public/ theintegrative.net:/home/integrative/public/
+
+&lt;span class=&#34;c1&#34;&gt;# restart docker container with new files&lt;/span&gt;
+ssh theintegrative.net &lt;span class=&#34;s2&#34;&gt;&amp;#34;docker-compose down --remove-orphans &amp;amp;&amp;amp; docker-compose up -d&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# start up browser of choice, to see the results&lt;/span&gt;
+brave-browser https://theintegrative.net/
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Here there are two things we are going to focus on in order to explain them both.&lt;/p&gt;
+&lt;p&gt;We take backup.sh first:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#! /bin/bash
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;DATE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;date +%Y-%m-%d_%H&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;remote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;theintegrative.net:~/public/&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;~/website/hugo/doks/backups/backup_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DATE&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/&amp;#34;&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# check if backup folder does not exist, create it and sync files in archive mode &lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; ! -d &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+                &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Create directory &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+                mkdir -p &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+rsync -rauz --delete &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;remote&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;destination&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Succes!&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Failure&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;As you can see here this script checks if the folder for this hour does not exist and if it does updates it. This is a good solution to begin with. But as workloads will increase so will the demand for a more elegant solution. Updates on that solution will apear in this &lt;a class=&#34;link&#34; href=&#34;https://github.com/theintegrative/hugo-depoyment&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Next I will expain shortly what the flags mean within rsync:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-a archive&lt;/li&gt;
+&lt;li&gt;-z compress file data during the transfer&lt;/li&gt;
+&lt;li&gt;-r recurse into directories&lt;/li&gt;
+&lt;li&gt;-u skip files that are newer on the receiver&lt;/li&gt;
+&lt;li&gt;-v increase verbosity&lt;/li&gt;
+&lt;li&gt;&amp;ndash;delete deletes files from the destination directory that do not exist in the source directoy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After backing up and pushing the new site with rsync, the docker container wil be restarted using docker-compose.  In the next part we will go over it quickly before closing this post.&lt;/p&gt;
+&lt;h2 id=&#34;the-production-environment-on-my-server&#34;&gt;The production environment on my server&lt;/h2&gt;
+&lt;p&gt;The nice thing about docker files is that&amp;rsquo;s very readable and explains a fair bit by itself. The internal configurations of the nginx-certbot container will not be covered here.&lt;/p&gt;
+&lt;p&gt;This is what the folder looks like on the server:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;integrative@theintegrative.net:~/$ ls
+Dockerfile  conf.d  docker-compose.yaml  nginx-certbot.env  nginx_secrets  public
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Dockerfile&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; jonasal/nginx-certbot:latest&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;COPY&lt;/span&gt; conf.d/* /etc/nginx/conf.d/&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;With the Dockerfile you pull the latest jonasal/nginx-certbot container from the docker.io hub and copy over the nginx configuration files in the correct directory.&lt;/p&gt;
+&lt;p&gt;For that I will manually use this command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo docker build -t jonasal/nginx-certbot:site .
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Definitely check for a stable version before using a container like this one. If you are not sure, increment a number after your build tag.&lt;/p&gt;
+&lt;p&gt;Like this for instance:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo docker build -t jonasal/nginx-certbot:site-0 .
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;docker-compose.yaml&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;services&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;webserver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;jonasal/nginx-certbot:site&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;restart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;unless-stopped&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;ports&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;m&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;m&#34;&gt;443&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;443&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;nginx_secrets:/etc/letsencrypt&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./public/:/usr/share/nginx/html:ro&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;environment&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;CERTBOT_EMAIL=example@example.com&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;env_file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;./nginx-certbot.env&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;volumes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;nginx_secrets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Here you see this docker-compose file will use the container that you created and runs the image stored from the local repository. It will restart unless manually stopped. It also binds the volumes to the container from local storage and uses the environment variables given to it.&lt;/p&gt;
+&lt;h2 id=&#34;closing-thoughs&#34;&gt;Closing thoughs&lt;/h2&gt;
+&lt;p&gt;This I my first time writing a technical document like this. So feedback is much appreciated. Stay tuned for more integrated in the future.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='I am going to breakdown in this post how I setup this self-hosted website.'>
+<title>How I setup this self-hosted markdown website using docker, hugo and obsidian</title>
+
+<link rel='canonical' href='https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='How I setup this self-hosted markdown website using docker, hugo and obsidian'>
+<meta property='og:description' content='I am going to breakdown in this post how I setup this self-hosted website.'>
+<meta property='og:url' content='https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/'>
+<meta property='og:site_name' content='Let&#39;s get integrative together'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='hugo' /><meta property='article:tag' content='scripting' /><meta property='article:tag' content='git' /><meta property='article:tag' content='nginx' /><meta property='article:tag' content='certbot' /><meta property='article:tag' content='ubuntu' /><meta property='article:tag' content='vim' /><meta property='article:tag' content='obsidian' /><meta property='article:published_time' content='2022-08-20T16:25:37&#43;00:00'/><meta property='article:modified_time' content='2022-08-20T16:25:37&#43;00:00'/><meta property='og:image' content='https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog.jpg' />
+<meta name="twitter:title" content="How I setup this self-hosted markdown website using docker, hugo and obsidian">
+<meta name="twitter:description" content="I am going to breakdown in this post how I setup this self-hosted website."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hua84c249b608cbc5648a7ba96c1ec2b5b_8962_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">♾️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Let&#39;s get integrative together</a></h1>
+            <h2 class="site-description">Linux, opensource and more integrated in the future.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/theintegrative'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/brightly/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#foreword">Foreword</a></li>
+    <li><a href="#software-used-in-this-project">Software used in this project</a></li>
+    <li><a href="#the-development-environment-my-machine">The development environment my machine</a></li>
+    <li><a href="#the-production-environment-on-my-server">The production environment on my server</a></li>
+    <li><a href="#closing-thoughs">Closing thoughs</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/">
+                <img src="/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog_huf162c2d6316f25287c7db49e982fef49_5779658_800x0_resize_q75_box.jpg"
+                        srcset="/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog_huf162c2d6316f25287c7db49e982fef49_5779658_800x0_resize_q75_box.jpg 800w, /p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/picture-this-blog_huf162c2d6316f25287c7db49e982fef49_5779658_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post How I setup this self-hosted markdown website using docker, hugo and obsidian" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/projects/" style="background-color: #2a9d8f; color: #fff;">
+                Projects
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/">How I setup this self-hosted markdown website using docker, hugo and obsidian</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            I am going to breakdown in this post how I setup this self-hosted website.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 20, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Hey, integrative! I am going to breakdown in this post how I setup this self-hosted website.  We all have to start somewhere. Happy to take you with me on my public learning journey.</p>
+<h2 id="tldr">TL;DR</h2>
+<p>I created a few content management scripts that automate development with hugo and obsidian. It generates the website, makes a backup before it deploys the new website into production by restarting the nginx-certbot container with the new content. You can get code from this <a class="link" href="https://github.com/theintegrative/hugo-depoyment"  target="_blank" rel="noopener"
+    >repository</a>. Updates will follow.</p>
+<h2 id="foreword">Foreword</h2>
+<p>For explanatory reasons I&rsquo;ve filtered out irrelevant files and folders so that we can focus on the automation that is important. To see the files that are ignored go <a class="link" href="https://github.com/theintegrative/theintegrative.net"  target="_blank" rel="noopener"
+    >here</a>. In this breakdown I will not go into detail about how I configured my nginx-certbot.</p>
+<h2 id="software-used-in-this-project">Software used in this project</h2>
+<ul>
+<li>Obsidian - Markdown editor</li>
+<li>Vim -  Text editor</li>
+<li>Shell Scripting</li>
+<li>Docker - Containerisation</li>
+<li>Hugo - Static Website Generator</li>
+<li>Ubuntu Desktop + Ubuntu Server</li>
+<li>Nginx - webserver</li>
+<li>Git - version control</li>
+<li>Certbot - automates Let&rsquo;s encrypt certificates for security through https</li>
+</ul>
+<h2 id="the-development-environment-my-machine">The development environment my machine</h2>
+<p>Let&rsquo;s take a look by listing these scripts in a tree like format:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">integrative@home:~/website/hugo/doks$ tree
+.
+├── backups
+│   └── backup.sh
+├── development.sh
+└── production.sh
+
+<span class="m">1</span> directory, <span class="m">3</span> files
+</code></pre></td></tr></table>
+</div>
+</div><p>We start by developing our website.</p>
+<p>This is what the script development.sh contains inside:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
+</span><span class="cp"></span>
+<span class="c1"># Start your browser</span>
+brave-browser http://localhost:1313/
+
+<span class="c1"># With flatpak start obsidian and open the vault &#34;en&#34; </span>
+<span class="c1"># that is the content folder through the obsidian URI in the background</span>
+flatpak run md.obsidian.Obsidian obsidian://open?vault<span class="o">=</span>en <span class="p">&amp;</span>
+
+<span class="c1"># Starting development server with hugo doks theme for more https://getdoks.org/ </span>
+<span class="c1"># For hugo use: hugo server</span>
+npm run start
+</code></pre></td></tr></table>
+</div>
+</div><p>Running development.sh will give me an open browser and markdown editor. From there I can start writing blog posts like this. In a future post I will show you more on workflows, setting up obsidian and more. When done, I simply do Ctrl-C that shuts down the running server. Then commit it to the repository.</p>
+<p>Now, we are going to take a look into the production.sh file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
+</span><span class="cp"></span>
+<span class="c1"># first check for updates</span>
+npm update
+
+<span class="c1"># build the website</span>
+npm run build
+
+<span class="c1"># make backup of the production site before deployment</span>
+bash ./backups/backup.sh
+
+<span class="c1"># update files</span>
+rsync -ruzv --delete ./public/ theintegrative.net:/home/integrative/public/
+
+<span class="c1"># restart docker container with new files</span>
+ssh theintegrative.net <span class="s2">&#34;docker-compose down --remove-orphans &amp;&amp; docker-compose up -d&#34;</span>
+
+<span class="c1"># start up browser of choice, to see the results</span>
+brave-browser https://theintegrative.net/
+</code></pre></td></tr></table>
+</div>
+</div><p>Here there are two things we are going to focus on in order to explain them both.</p>
+<p>We take backup.sh first:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#! /bin/bash
+</span><span class="cp"></span>
+<span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d_%H<span class="sb">`</span>
+<span class="nv">remote</span><span class="o">=</span><span class="s1">&#39;theintegrative.net:~/public/&#39;</span>
+<span class="nv">destination</span><span class="o">=</span><span class="s2">&#34;~/website/hugo/doks/backups/backup_</span><span class="si">${</span><span class="nv">DATE</span><span class="si">}</span><span class="s2">/&#34;</span>
+
+<span class="c1"># check if backup folder does not exist, create it and sync files in archive mode </span>
+<span class="k">if</span> <span class="o">[[</span> ! -d <span class="si">${</span><span class="nv">destination</span><span class="si">}</span> <span class="o">]]</span>
+        <span class="k">then</span>
+                <span class="nb">echo</span> <span class="s2">&#34;Create directory </span><span class="si">${</span><span class="nv">destination</span><span class="si">}</span><span class="s2">&#34;</span>
+                mkdir -p <span class="si">${</span><span class="nv">destination</span><span class="si">}</span>
+<span class="k">fi</span>
+rsync -rauz --delete <span class="si">${</span><span class="nv">remote</span><span class="si">}</span> <span class="si">${</span><span class="nv">destination</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;Succes!&#34;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;Failure&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see here this script checks if the folder for this hour does not exist and if it does updates it. This is a good solution to begin with. But as workloads will increase so will the demand for a more elegant solution. Updates on that solution will apear in this <a class="link" href="https://github.com/theintegrative/hugo-depoyment"  target="_blank" rel="noopener"
+    >repository</a>.</p>
+<p>Next I will expain shortly what the flags mean within rsync:</p>
+<ul>
+<li>-a archive</li>
+<li>-z compress file data during the transfer</li>
+<li>-r recurse into directories</li>
+<li>-u skip files that are newer on the receiver</li>
+<li>-v increase verbosity</li>
+<li>&ndash;delete deletes files from the destination directory that do not exist in the source directoy</li>
+</ul>
+<p>After backing up and pushing the new site with rsync, the docker container wil be restarted using docker-compose.  In the next part we will go over it quickly before closing this post.</p>
+<h2 id="the-production-environment-on-my-server">The production environment on my server</h2>
+<p>The nice thing about docker files is that&rsquo;s very readable and explains a fair bit by itself. The internal configurations of the nginx-certbot container will not be covered here.</p>
+<p>This is what the folder looks like on the server:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">integrative@theintegrative.net:~/$ ls
+Dockerfile  conf.d  docker-compose.yaml  nginx-certbot.env  nginx_secrets  public
+</code></pre></td></tr></table>
+</div>
+</div><p>Dockerfile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="k">FROM</span><span class="s"> jonasal/nginx-certbot:latest</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> conf.d/* /etc/nginx/conf.d/<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>With the Dockerfile you pull the latest jonasal/nginx-certbot container from the docker.io hub and copy over the nginx configuration files in the correct directory.</p>
+<p>For that I will manually use this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo docker build -t jonasal/nginx-certbot:site .
+</code></pre></td></tr></table>
+</div>
+</div><p>Definitely check for a stable version before using a container like this one. If you are not sure, increment a number after your build tag.</p>
+<p>Like this for instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo docker build -t jonasal/nginx-certbot:site-0 .
+</code></pre></td></tr></table>
+</div>
+</div><p>docker-compose.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">webserver</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">jonasal/nginx-certbot:site</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">80</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span><span class="w">      </span>- <span class="m">443</span><span class="p">:</span><span class="m">443</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">nginx_secrets:/etc/letsencrypt</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./public/:/usr/share/nginx/html:ro</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">CERTBOT_EMAIL=example@example.com</span><span class="w">
+</span><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./nginx-certbot.env</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">nginx_secrets</span><span class="p">:</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Here you see this docker-compose file will use the container that you created and runs the image stored from the local repository. It will restart unless manually stopped. It also binds the volumes to the container from local storage and uses the environment variables given to it.</p>
+<h2 id="closing-thoughs">Closing thoughs</h2>
+<p>This I my first time writing a technical document like this. So feedback is much appreciated. Stay tuned for more integrated in the future.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">docker</a>
+        
+            <a href="/tags/hugo/">hugo</a>
+        
+            <a href="/tags/scripting/">scripting</a>
+        
+            <a href="/tags/git/">git</a>
+        
+            <a href="/tags/nginx/">nginx</a>
+        
+            <a href="/tags/certbot/">certbot</a>
+        
+            <a href="/tags/ubuntu/">ubuntu</a>
+        
+            <a href="/tags/vim/">vim</a>
+        
+            <a href="/tags/obsidian/">obsidian</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/how-my-main-driver-is-setup-with-ansible/">
+        
+        
+            <div class="article-image">
+                <img src="/p/how-my-main-driver-is-setup-with-ansible/_hu57db689649bd2f065b9314975a8a6f35_1516568_6f83ad5b57a69a4a68315d6d10ce33d6.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post How my main driver is setup with ansible"
+                        
+                        data-hash="md5-vzB8D/JFawj2eH47OMYKFA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How my main driver is setup with ansible</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "theintegrative" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Let&#39;s get integrative together
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

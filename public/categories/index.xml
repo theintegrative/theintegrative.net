@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on Let&#39;s get integrative together</title>
+        <link>https://theintegrative.net/categories/</link>
+        <description>Recent content in Categories on Let&#39;s get integrative together</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 21 Sep 2022 16:27:15 +0000</lastBuildDate><atom:link href="https://theintegrative.net/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Projects</title>
+        <link>https://theintegrative.net/categories/projects/</link>
+        <pubDate>Wed, 21 Sep 2022 16:27:15 +0000</pubDate>
+        
+        <guid>https://theintegrative.net/categories/projects/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Future</title>
+        <link>https://theintegrative.net/categories/future/</link>
+        <pubDate>Tue, 19 Jul 2022 00:56:13 +0000</pubDate>
+        
+        <guid>https://theintegrative.net/categories/future/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>
