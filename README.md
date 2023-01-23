@@ -8,13 +8,9 @@ This particular setup is created with [hugo](https://gohugo.io/) and [obsidian](
 
 Github:
 ```shell
-git clone git@gitlab.com:theintegrative/theintegrative-net.git
-```
-
-Gitlab:
-```shell
 git clone git@github.com:theintegrative/theintegrative.net.git
 ```
+
 First time in obsidian:
 1. Open folder as fault
 2. Select the content folder
