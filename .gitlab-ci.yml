@@ -3,6 +3,7 @@ variables:
   DIR: public/
 
 stages:
+  - build
   - deploy
 
 # TODO build job if dockerfile changes push and pull container image
