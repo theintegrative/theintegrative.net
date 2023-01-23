@@ -5,6 +5,8 @@ variables:
 stages:
   - deploy
 
+# TODO build job if dockerfile changes push and pull container image
+
 deploy-job:
   stage: deploy
   before_script:
