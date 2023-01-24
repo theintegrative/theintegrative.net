@@ -8,12 +8,14 @@
         "type": "tabs",
         "children": [
           {
-            "id": "3e77efcb6a8d5b5f",
+            "id": "4d241120b8deb7c4",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "post/how-this-blog-is-setup/picture-this-blog.jpg"
+                "file": "post/updated-obsidian-blog-setup/index.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -83,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "post/how-this-blog-is-setup/picture-this-blog.jpg",
+                "file": "post/updated-obsidian-blog-setup/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "post/how-this-blog-is-setup/picture-this-blog.jpg",
+                "file": "post/updated-obsidian-blog-setup/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -123,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "post/how-this-blog-is-setup/picture-this-blog.jpg"
+                "file": "post/updated-obsidian-blog-setup/index.md"
               }
             }
           }
@@ -145,17 +147,17 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "3e77efcb6a8d5b5f",
+  "active": "4d241120b8deb7c4",
   "lastOpenFiles": [
-    "_index.md",
-    "templates/new-post.md",
+    "post/updated-obsidian-blog-setup/cheng-feng-obsidian.jpg",
+    "post/updated-obsidian-blog-setup/index.md",
+    "post/how-this-blog-is-setup/index.md",
     "post/how-my-main-driver-is-setup-with-ansible/index.md",
-    "post/plan-for-the-future/index.md",
+    "categories/Future/_index.md",
     "categories/Projects/_index.md",
-    "post/plan-for-the-future/plan-future.webp",
-    "templates/Snippets/new-link-snippet.md",
-    "templates/new-catagory.md",
+    "page/archives/index.md",
+    "page/links/index.md",
     "page/search/index.md",
-    "page/links/index.md"
+    "_index.md"
   ]
 }
