@@ -3,7 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://theintegrative.net/</loc>
-    <lastmod>2022-09-21T16:27:15+00:00</lastmod>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/categories/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/tags/gitlab/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/tags/hugo/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/tags/obsidian/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/post/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/categories/projects/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/tags/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
+  </url><url>
+    <loc>https://theintegrative.net/p/updated-obsidian-blog-setup/</loc>
+    <lastmod>2023-01-24T19:19:41+00:00</lastmod>
   </url><url>
     <loc>https://theintegrative.net/tags/ansible/</loc>
     <lastmod>2022-09-21T16:27:15+00:00</lastmod>
@@ -11,22 +35,10 @@
     <loc>https://theintegrative.net/tags/automation/</loc>
     <lastmod>2022-09-21T16:27:15+00:00</lastmod>
   </url><url>
-    <loc>https://theintegrative.net/categories/</loc>
-    <lastmod>2022-09-21T16:27:15+00:00</lastmod>
-  </url><url>
     <loc>https://theintegrative.net/tags/devops/</loc>
     <lastmod>2022-09-21T16:27:15+00:00</lastmod>
   </url><url>
     <loc>https://theintegrative.net/p/how-my-main-driver-is-setup-with-ansible/</loc>
-    <lastmod>2022-09-21T16:27:15+00:00</lastmod>
-  </url><url>
-    <loc>https://theintegrative.net/post/</loc>
-    <lastmod>2022-09-21T16:27:15+00:00</lastmod>
-  </url><url>
-    <loc>https://theintegrative.net/categories/projects/</loc>
-    <lastmod>2022-09-21T16:27:15+00:00</lastmod>
-  </url><url>
-    <loc>https://theintegrative.net/tags/</loc>
     <lastmod>2022-09-21T16:27:15+00:00</lastmod>
   </url><url>
     <loc>https://theintegrative.net/tags/certbot/</loc>
@@ -41,13 +53,7 @@
     <loc>https://theintegrative.net/p/how-i-setup-this-self-hosted-markdown-website-using-docker-hugo-and-obsidian/</loc>
     <lastmod>2022-08-20T16:25:37+00:00</lastmod>
   </url><url>
-    <loc>https://theintegrative.net/tags/hugo/</loc>
-    <lastmod>2022-08-20T16:25:37+00:00</lastmod>
-  </url><url>
     <loc>https://theintegrative.net/tags/nginx/</loc>
-    <lastmod>2022-08-20T16:25:37+00:00</lastmod>
-  </url><url>
-    <loc>https://theintegrative.net/tags/obsidian/</loc>
     <lastmod>2022-08-20T16:25:37+00:00</lastmod>
   </url><url>
     <loc>https://theintegrative.net/tags/scripting/</loc>
@@ -74,19 +80,17 @@
     <loc>https://theintegrative.net/tags/vision/</loc>
     <lastmod>2022-07-19T00:56:13+00:00</lastmod>
   </url><url>
-    <loc>https://theintegrative.net/archives/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://theintegrative.net/page/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://theintegrative.net/templates/new-catagory/</loc>
   </url><url>
     <loc>https://theintegrative.net/templates/new-post/</loc>
   </url><url>
     <loc>https://theintegrative.net/templates/snippets/new-link-snippet/</loc>
   </url><url>
+    <loc>https://theintegrative.net/archives/</loc>
+  </url><url>
     <loc>https://theintegrative.net/links/</loc>
+  </url><url>
+    <loc>https://theintegrative.net/page/</loc>
   </url><url>
     <loc>https://theintegrative.net/search/</loc>
   </url><url>

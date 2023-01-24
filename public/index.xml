@@ -6,7 +6,78 @@
         <description>Recent content on Let&#39;s get integrative together</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 21 Sep 2022 16:27:15 +0000</lastBuildDate><atom:link href="https://theintegrative.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 24 Jan 2023 19:19:41 +0000</lastBuildDate><atom:link href="https://theintegrative.net/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Updated obsidian blog setup</title>
+        <link>https://theintegrative.net/p/updated-obsidian-blog-setup/</link>
+        <pubDate>Tue, 24 Jan 2023 19:19:41 +0000</pubDate>
+        
+        <guid>https://theintegrative.net/p/updated-obsidian-blog-setup/</guid>
+        <description>&lt;img src="https://theintegrative.net/p/updated-obsidian-blog-setup/cheng-feng-obsidian.jpg" alt="Featured image of post Updated obsidian blog setup" /&gt;&lt;p&gt;I wish you a happy new year!  The first month (almost!) went by like nothing. The good news is that I plan to create a lot more content about things that hopefully interest you too. This year&amp;rsquo;s theme is all about awakening creativity. Enough about that, I love to talk about that more &amp;ldquo;here&amp;rdquo; in the future.&lt;/p&gt;
+&lt;h2 id=&#34;key-lesson-learned&#34;&gt;Key lesson learned&lt;/h2&gt;
+&lt;p&gt;It is always good to go over the lessons you have learned. My main goal was to get better at writing good content. With that skill also be able to get my ideas and insights as quickly as I can online. One goal that I proposed to myself was writing minimally one post a week.&lt;/p&gt;
+&lt;p&gt;As you see that didn&amp;rsquo;t happen. Persistence, especially for goals you have a hard time integrating will have a good effect when used wisely.&lt;/p&gt;
+&lt;p&gt;Why didn&amp;rsquo;t it happen?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Too much friction in the process of pushing updates to my website&lt;/li&gt;
+&lt;li&gt;Not coding or engineering enough projects&lt;/li&gt;
+&lt;li&gt;Not enough structure in my content vault in obsidian&lt;/li&gt;
+&lt;li&gt;Site design didn&amp;rsquo;t inspire me to work on it (yes, I will explain :)&lt;/li&gt;
+&lt;li&gt;Insecurities about exposing ideas&lt;/li&gt;
+&lt;li&gt;Actually, getting settled at your new job&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;reduce-friction&#34;&gt;Reduce friction&lt;/h3&gt;
+&lt;p&gt;Creating a new post inside obsidian was a lot of metadata, that I manually copied. I reduced that with the &lt;a class=&#34;link&#34; href=&#34;https://github.com/SilentVoid13/Templater&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;templater plugin&lt;/a&gt; for Obsidian.  I use the markdown editor every day and will share the things I create and learn using it.&lt;/p&gt;
+&lt;p&gt;Also, there were many redundant sections on the website that I didn&amp;rsquo;t use. This created a false expectation that I needed to somehow fill this gap. Sound familiar? Well, that needed to change. I decided to switch the Hugo theme to one that is minimal. It only uses the things that I want to create.&lt;/p&gt;
+&lt;p&gt;Pushing the website to github, testing, generating, and deploying the website were too many steps and failed a lot. Many things were manual that needed to be automated. It is easy to over-engineer when you just want an open-source combination of tools that can publish content on your website.&lt;/p&gt;
+&lt;p&gt;Coding every day by being assertive with your craft reduces a lot of friction. What also helped is doing type training for 15 minutes every day. If you were to approach coding as an entrepreneur would inside a virtual machine that is built in a test environment. That is the mental state I am describing. I love IT.&lt;/p&gt;
+&lt;h2 id=&#34;the-more-technical-part&#34;&gt;The more technical part&lt;/h2&gt;
+&lt;p&gt;You maybe expected the technical part.&lt;/p&gt;
+&lt;p&gt;I use Hugo as the website generator. For content creation and management I use obsidian with its community plugins for example templater. Github for version control that is publicly available &lt;a class=&#34;link&#34; href=&#34;https://github.com/theintegrative/theintegrative.net&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt; and Gitlab as a pipeline to deploy the website to my web server. The server runs an Nginx Certbot container using docker-compose.&lt;/p&gt;
+&lt;p&gt;The steps for working on my website are easy.&lt;/p&gt;
+&lt;p&gt;First I need to navigate to the folder where my website is and run these commands:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;obsidian obsidian://open?vault&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;content &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+firefox http://localhost:1313/
+hugo server
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;This assumes you already opened the folder &amp;ldquo;content&amp;rdquo; as vault the first time in obsidian&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This opens the vault named content using the obsidian &lt;a class=&#34;link&#34; href=&#34;https://help.obsidian.md/Advanced&amp;#43;topics/Using&amp;#43;obsidian&amp;#43;URI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;uri&lt;/a&gt;, which are commonly used for cross-app automation workflows like these.  After that, open Firefox on localhost where the  &lt;code&gt;Hugo server&lt;/code&gt; will start your development site.&lt;/p&gt;
+&lt;p&gt;From there I create my website inside obsidian and check how it is being displayed. If I am done with writing then I want to get it online.&lt;/p&gt;
+&lt;p&gt;When I am inside the website repository, I will do this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git add content/post/example
+git commit -m &lt;span class=&#34;s2&#34;&gt;&amp;#34;Definitely subscribe and learn from the integrative&amp;#34;&lt;/span&gt;
+hugo
+git push
+git push upstream
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;The Hugo command generates the website so that I can use it with my Nginx webserver. Git push upstream is the second remote added that goes to my Gitlab project pipeline.&lt;/p&gt;
+&lt;h2 id=&#34;closing-thoughts&#34;&gt;Closing thoughts&lt;/h2&gt;
+&lt;p&gt;I am very motivated to create more. There are some things to say about persistence in combination with simplicity and patience. These things will be said in practice and words in the coming year because for me it seems exciting to share this journey with you all.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>How my main driver is setup with ansible</title>
         <link>https://theintegrative.net/p/how-my-main-driver-is-setup-with-ansible/</link>
         <pubDate>Wed, 21 Sep 2022 16:27:15 +0000</pubDate>
@@ -670,14 +741,6 @@ Dockerfile  conf.d  docker-compose.yaml  nginx-certbot.env  nginx_secrets  publi
 </description>
         </item>
         <item>
-        <title>Archives</title>
-        <link>https://theintegrative.net/archives/</link>
-        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://theintegrative.net/archives/</guid>
-        <description></description>
-        </item>
-        <item>
         <title></title>
         <link>https://theintegrative.net/templates/new-catagory/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -720,6 +783,14 @@ Dockerfile  conf.d  docker-compose.yaml  nginx-certbot.env  nginx_secrets  publi
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://theintegrative.net/archives/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://theintegrative.net/archives/</guid>
+        <description></description>
         </item>
         <item>
         <title>Links</title>
