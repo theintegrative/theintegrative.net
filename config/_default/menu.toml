@@ -22,3 +22,19 @@ url = "https://www.linkedin.com/in/brightly/"
 
 [social.params]
 icon = "brand-linkedin"
+
+[[social]]
+identifier = "youtube"
+name = "Youtube"
+url = "https://www.youtube.com/@theintegrative"
+
+[social.params]
+icon = "brand-youtube"
+
+[[social]]
+identifier = "twich"
+name = "Twitch"
+url = "https://www.twitch.tv/theintegrative"
+
+[social.params]
+icon = "brand-twitch"

@@ -4,22 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "52c6f56890f08ddc",
+        "id": "97f77426dcce8e4d",
         "type": "tabs",
         "children": [
           {
-            "id": "4d241120b8deb7c4",
+            "id": "e2bf0d7c077f99d5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "post/updated-obsidian-blog-setup/index.md",
+                "file": "templates/Snippets/new-link-snippet.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f549b4c25c3ff49e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "categories/Future/_index.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "post/updated-obsidian-blog-setup/index.md",
+                "file": "categories/Future/_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "post/updated-obsidian-blog-setup/index.md",
+                "file": "categories/Future/_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "post/updated-obsidian-blog-setup/index.md"
+                "file": "categories/Future/_index.md"
               }
             }
           }
@@ -147,17 +160,17 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "4d241120b8deb7c4",
+  "active": "ef00afa3b76ee446",
   "lastOpenFiles": [
-    "post/updated-obsidian-blog-setup/cheng-feng-obsidian.jpg",
-    "post/updated-obsidian-blog-setup/index.md",
-    "post/how-this-blog-is-setup/index.md",
     "post/how-my-main-driver-is-setup-with-ansible/index.md",
+    "post/how-my-main-driver-is-setup-with-ansible/ansible-main-driver-playbook.jpg",
+    "page/links/index.md",
+    "page/archives/index.md",
+    "_index.md",
+    "post/plan-for-the-future/index.md",
     "categories/Future/_index.md",
     "categories/Projects/_index.md",
-    "page/archives/index.md",
-    "page/links/index.md",
-    "page/search/index.md",
-    "_index.md"
+    "templates/new-post.md",
+    "templates/Snippets/new-link-snippet.md"
   ]
 }

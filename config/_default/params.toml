@@ -2,6 +2,7 @@
 mainSections = ["post"]
 # Output page's full content in RSS.
 rssFullContent = true
+favicon = "/favicon.ico"
 
 [footer]
 since = 2020
@@ -54,8 +55,8 @@ limit = 10
 type = "toc"
 
 [opengraph.twitter]
-site = ""
-card = "summary_large_image"
+site = "@theintegratives"
+card = "summary"
 
 [defaultImage.opengraph]
 enabled = true
