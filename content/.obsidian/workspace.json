@@ -4,35 +4,74 @@
     "type": "split",
     "children": [
       {
-        "id": "97f77426dcce8e4d",
-        "type": "tabs",
+        "id": "87843a2aab7277c1",
+        "type": "split",
         "children": [
           {
-            "id": "e2bf0d7c077f99d5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "templates/Snippets/new-link-snippet.md",
-                "mode": "source",
-                "source": false
+            "id": "97f77426dcce8e4d",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "73a6ea4476ce6fa6",
+                "type": "leaf",
+                "state": {
+                  "type": "card-board-view",
+                  "state": {}
+                }
+              },
+              {
+                "id": "06854736605e1df2",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "post/chicken-and-egg-solution/index.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
+              },
+              {
+                "id": "b7b834da52fabf2c",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "post/chicken-and-egg-solution/index.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
               }
-            }
+            ],
+            "currentTab": 1
           },
           {
-            "id": "f549b4c25c3ff49e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "categories/Future/_index.md",
-                "mode": "source",
-                "source": false
+            "id": "b7c0d6cf294b4479",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "39eb31ebb8105d8a",
+                "type": "leaf",
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "__type": "8d54e44a-32e7-4297-8ae2-cff88e92ce28",
+                    "args": [],
+                    "cwd": "/home/theintegrative/github/my-repos/theintegrative.net/content/",
+                    "executable": "/bin/sh",
+                    "serial": {
+                      "columns": 173,
+                      "data": "\r\n$ git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/workspace.json\r\n\r\n\u001b[0mUntracked files:\r\n  (use \"git add <file>...\" to include in what will be committed)\r\n\u001b[8C\u001b[31mpost/chicken-egg-solution/\r\n\r\n\u001b[0mno changes added to commit (use \"git add\" and/or \"git commit -a\")\r\n$ git add -A\r\n$ git add =A                                                                            \r\nfatal: pathspec '=A' did not match any files\r\n$ git add -A\r\n$ git status\r\nOn branch main\r\nYour branch is up to date with 'origin/main'.\r\n\r\nChanges to be committed:\r\n  (use \"git restore --staged <file>...\" to unstage)\r\n\u001b[8C\u001b[32mmodified:   .obsidian/workspace.json\r\n\u001b[8Cnew file:   post/chicken-and-egg-solution/index.md\r\n\r\n\u001b[0mChanges not staged for commit:\r\n  (use \"git add <file>...\" to update what will be committed)\r\n  (use \"git restore <file>...\" to discard changes in working directory)\r\n\u001b[8C\u001b[31mmodified:   .obsidian/workspace.json\r\n\r\n\u001b[0m$ git commit -m \"Created new blogpost: chicken and egg solution\"\r\n[main 75dbb94] Created new blogpost: chicken and egg solution\r\n 2 files changed, 72 insertions(+), 25 deletions(-)\r\n create mode 100644 post/chicken-and-egg-solution/index.md\r\n$ git push\r\nEnumerating objects: 11, done.\r\nCounting objects: 100% (11/11), done.\r\nDelta compression using up to 16 threads\r\nCompressing objects: 100% (6/6), done.\r\nWriting objects: 100% (7/7), 2.40 KiB | 2.40 MiB/s, done.\r\nTotal 7 (delta 4), reused 0 (delta 0), pack-reused 0\r\nremote: Resolving deltas: 100% (4/4), completed with 4 local objects.\r\nTo github.com:theintegrative/content-vault.git\r\n   e01beaf..75dbb94  main -> main\r\n$ ",
+                      "rows": 31
+                    }
+                  }
+                }
               }
-            }
+            ]
           }
         ],
-        "currentTab": 1
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -61,7 +100,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#content/idea",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -98,7 +137,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "categories/Future/_index.md",
+                "file": "post/chicken-and-egg-solution/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +154,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "categories/Future/_index.md",
+                "file": "post/chicken-and-egg-solution/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +177,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "categories/Future/_index.md"
+                "file": "post/chicken-and-egg-solution/index.md"
               }
             }
           }
@@ -157,20 +196,21 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "card-board:CardBoard": false
     }
   },
-  "active": "ef00afa3b76ee446",
+  "active": "39eb31ebb8105d8a",
   "lastOpenFiles": [
-    "post/how-my-main-driver-is-setup-with-ansible/index.md",
-    "post/how-my-main-driver-is-setup-with-ansible/ansible-main-driver-playbook.jpg",
-    "page/links/index.md",
-    "page/archives/index.md",
-    "_index.md",
+    "0_pipeline/Pipeline.md",
     "post/plan-for-the-future/index.md",
+    "post/plan-for-the-future/plan-future.webp",
+    "post/chicken-and-egg-solution/index.md",
+    "_index.md",
+    "Untitled 1.md",
+    "templates/move-pipline.md",
+    "templates/new-pipeline.md",
     "categories/Future/_index.md",
-    "categories/Projects/_index.md",
-    "templates/new-post.md",
-    "templates/Snippets/new-link-snippet.md"
+    "post/how-this-blog-is-setup/index.md"
   ]
 }

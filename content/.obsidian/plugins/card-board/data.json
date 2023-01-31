@@ -1,0 +1,51 @@
+{
+  "version": "0.8.0",
+  "data": {
+    "boardConfigs": [
+      {
+        "tag": "tagBoardConfig",
+        "data": {
+          "columns": [
+            {
+              "tag": "content/idea",
+              "displayTitle": "Content idea"
+            },
+            {
+              "tag": "content/ready",
+              "displayTitle": "Content ready"
+            },
+            {
+              "tag": "content/development",
+              "displayTitle": "Content development"
+            },
+            {
+              "tag": "content/review",
+              "displayTitle": "Content review"
+            }
+          ],
+          "showColumnTags": true,
+          "completedCount": 10,
+          "filters": [],
+          "filterPolarity": "Allow",
+          "filterScope": "Both",
+          "showFilteredTags": true,
+          "includeOthers": false,
+          "includeUntagged": false,
+          "title": "Content"
+        }
+      }
+    ],
+    "globalSettings": {
+      "taskCompletionFormat": "ObsidianCardBoard",
+      "columnNames": {
+        "today": "",
+        "tomorrow": "",
+        "future": "",
+        "undated": "",
+        "others": "",
+        "untagged": "",
+        "completed": ""
+      }
+    }
+  }
+}
